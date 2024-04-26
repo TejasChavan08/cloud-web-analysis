@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Okta Value</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('static/background.jpg'); /* Replace 'background.jpg' with the path to your background image */
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif; /* Change font family as needed */
+            color: black; /* Change text color as needed */
+        }
+
+        .logo {
+            margin: 0;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 200px; /* Adjust the width */
+            height: auto; /* Adjust the height */
+        }
+
+        .h1 {
+            margin-top: -90px;
+            margin-left: 90px;
+            font-size: 25px;
+        }
+
+        .content {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #getOktaButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50; /* Change button background color */
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #getOktaButton:hover {
+            background-color: #45a049; /* Change button hover background color */
+        }
+
+        #oktaValue {
+            margin-top: 20px;
+        }
+
+        /* Mobile styles */
+        @media only screen and (max-width: 600px) {
+            .logo {
+                width: 150px;
+            }
+
+            .h1 {
+                margin-left: 90px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <img src="static/imdlogo.png" alt="logo" style="height: 120px;">
+        <h1 class="h1">INDIA METEOROLOGICAL DEPARTMENT 1</h1>
+    </div>
+    <div class="content">
+        <h1>OKTA VALUE</h1>
+        <button id="getOktaButton">Get Okta Value</button>
+        <div id="oktaValue"></div>
+    </div>
+<script>
+    document.getElementById("getOktaButton").addEventListener("click", function() {
+        // Display a message
+        document.getElementById("oktaValue").innerText = "Wait, capturing the image...";
+
+        // Start a countdown (for example, 3 seconds)
+        var countdown = 3;
+        var countdownInterval = setInterval(function() {
+            if (countdown >= 0) {
+                document.getElementById("oktaValue").innerText = "Wait, capturing the image... " + countdown;
+                countdown--;
+            } else {
+                clearInterval(countdownInterval);
+                
+                // Perform the action to get the Okta value
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "/okta", true);  // Use the proxy route
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {             
+                        if (xhr.status === 200) {
+                            var response = JSON.parse(xhr.responseText);
+                            var oktaValue = response.okta_value;
+                            document.getElementById("oktaValue").innerText = "Okta value: " + oktaValue;
+                        } else {
+                            console.error("Error:", xhr.status);
+                        }
+                    }
+                };
+                xhr.send();
+            }
+        }, 1000);
+    });
+</script>
+</body>
+</html>
