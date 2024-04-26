@@ -76,7 +76,7 @@
 <body>
     <div class="logo">
         <img src="static/imdlogo.png" alt="logo" style="height: 120px;">
-        <h1 class="h1">INDIA METEOROLOGICAL DEPARTMENT 1</h1>
+        <h1 class="h1">INDIA METEOROLOGICAL DEPARTMENT</h1>
     </div>
     <div class="content">
         <h1>OKTA VALUE</h1>
@@ -99,7 +99,7 @@
                 
                 // Perform the action to get the Okta value
                 var xhr = new XMLHttpRequest();
-                xhr.open("GET", "http://192.168.137.99:5000/okta", true);  // Use the proxy route
+                xhr.open("GET", "http://192.168.137.99:5000/proxy-okta", true);  // Use the proxy route
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === XMLHttpRequest.DONE) {             
                         if (xhr.status === 200) {
